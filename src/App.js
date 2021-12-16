@@ -1,17 +1,18 @@
-import { useState } from "react";
+import { useReactiveVar } from "@apollo/client";
 import { HashRouter as Router, Route, Routes } from "react-router-dom";
 import Home from "./screens/home";
 import Login from "./screens/Login";
 // import NotFound from "./screens/NotFound";
+import { isLoggedInVar } from "./apollo"; 
 
 function App() {
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const isLoggedIn = useReactiveVar(isLoggedInVar);
 
   return (
     <div>
       <Router>
         <Routes>
-          <Route path="/" element={isLoggedIn ? <Home setIsLoggedIn={setIsLoggedIn} /> : <Login setIsLoggedIn={setIsLoggedIn} />} />
+          <Route path="/" element={isLoggedIn ? <Home /> : <Login />} />
           <Route
             path="/nomad-coders"
             element={
